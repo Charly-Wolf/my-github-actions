@@ -1,10 +1,17 @@
 name: "Setup AWS Credentials"
 description: "Configures AWS credentials assuming a role using OIDC"
+inputs:
+  role-to-assume:
+    required: true
+    description: "AWS IAM Role ARN to assume"
+  aws-region:
+    required: true
+    description: "AWS region"
 
 runs:
   using: "composite"
   steps:
     - uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        role-to-assume: ${{ inputs.role-to-assume }}
+        aws-region: ${{ inputs.aws-region }}
